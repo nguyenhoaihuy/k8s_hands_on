@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: payment-service
-        image: hoaihuy/payment-service:latest
+        image: hoaihuy/payment-service:1.0.4
         ports:
         - containerPort: 80
