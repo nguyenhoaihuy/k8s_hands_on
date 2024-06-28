@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+import os
 
 class Order(BaseModel):
     order_id: int
@@ -10,4 +11,4 @@ app = FastAPI()
 def send_notification(order: Order):
     # Simulate sending notification logic
     print(order)
-    return {"message": f"Notification sent for order {order}"}
+    return {"hostname": os.environ.get("HOSTNAME", "DEFAULT_HOSTNAME")}

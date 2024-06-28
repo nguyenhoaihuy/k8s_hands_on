@@ -5,7 +5,7 @@ DOCKER_USERNAME="hoaihuy"
 
 # Define Docker Hub repository prefix
 DOCKER_REPO_PREFIX="${DOCKER_USERNAME}"
-TAG="1.0.4"
+TAG="1.0.7"
 
 # Build and push order-service image
 echo "Building order-service image..."

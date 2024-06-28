@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 import requests
+import os
 
 app = FastAPI()
 
@@ -14,6 +15,7 @@ def create_order(order_id: int):
     try:
         notification_response = requests.post(notification_service_url, json={"order_id": order_id})
         notification_response.raise_for_status()
+        print(notification_response.json())
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=500, detail=f"Failed to send notification: {str(e)}")
 
@@ -21,7 +23,12 @@ def create_order(order_id: int):
     try:
         payment_response = requests.post(payment_service_url, json={"order_id": order_id})
         payment_response.raise_for_status()
+        print(payment_response.json())
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=500, detail=f"Failed to process payment: {str(e)}")
 
-    return {"message": "Order created, notification sent, and payment processed"}
+    order_hostname = os.environ.get("HOSTNAME", "DEFAULT_HOSTNAME")
+    print(order_hostname)
+    return {"order_hostname": order_hostname,
+            "notification_hostname": notification_response.json()["hostname"],
+            "payment_hostname": payment_response.json()["hostname"]}

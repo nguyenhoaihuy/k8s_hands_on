@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: order-service
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: order-service
@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: order-service
-        image: hoaihuy/order-service:1.0.4
+        image: hoaihuy/order-service:1.0.7
         ports:
         - containerPort: 80
